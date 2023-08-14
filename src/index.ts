@@ -60,6 +60,11 @@ export default class Macrokiosk {
 		const response = await fetch(url.toString());
 		const text = await response.text();
 
+		// Check if the response is an error
+		if(!isNaN(text as any)) {
+			throw new Error(this.getResponseMessage(parseInt(text)));
+		}
+
 		// Parse the text response
 		const [part1, part2] = text.split('|=');
 		const recipients = part1.split('|');
