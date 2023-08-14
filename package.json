@@ -1,0 +1,30 @@
+{
+  "name": "@adlanarifzr/macrokiosk-sdk",
+  "version": "0.0.1",
+  "description": "Macrokiosk (BOLD for SMS) unofficial SDK",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adlanarifzr/macrokiosk-sdk.git"
+  },
+  "keywords": [
+    "macrokiosk",
+    "sms",
+    "bold",
+    "sdk",
+    "api",
+    "gateway"
+  ],
+  "author": "Adlan Arif Bin Zakaria",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/adlanarifzr/macrokiosk-sdk/issues"
+  },
+  "homepage": "https://github.com/adlanarifzr/macrokiosk-sdk#readme",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
