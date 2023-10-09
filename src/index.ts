@@ -4,6 +4,20 @@ export enum MessageType {
 	UDH = 6,
 };
 
+export enum MessageStatus {
+	DELIVERED = 'DELIVERED',
+	UNDELIVERED = 'UNDELIVERED',
+	ACCEPTED = 'ACCEPTED',
+	PROCESSING = 'PROCESSING',
+};
+
+export type DeliveryNotificationPayload = {
+	msgid: string;
+	msisdn: string;
+	status: MessageStatus;
+	statusDetail?: string;
+};
+
 export type SendMessageOptions = {
 	type?: MessageType;
 	broadcastTitle?: string;
@@ -46,7 +60,7 @@ export default class Macrokiosk {
 		url.searchParams.append('type', `${options?.type ?? MessageType.ASCII}`);
 		url.searchParams.append('to', to.map(t => t.replace(/\+/g, '')).join(','));
 		url.searchParams.append('from', this.senderId);
-		url.searchParams.append('text', message);
+		url.searchParams.append('text', options?.type == MessageType.UNICODE ? this.stringToUCSText(message) : message);
 		url.searchParams.append('servid', this.serviceId);
 		url.searchParams.append('title', options?.broadcastTitle ?? '');
 		url.searchParams.append('detail', options?.showDetail === false ? '0' : '1');
@@ -126,5 +140,24 @@ export default class Macrokiosk {
 			case 500: return 'Internal server error';
 			default: return 'Unknown error';
 		}
+	}
+
+	private stringToUCSText = (input: string) => {
+		// Initialize an empty string to store the UCS representation
+		let ucsText = '';
+	  
+		// Loop through each character in the input string
+		for (let i = 0; i < input.length; i++) {
+			// Get the Unicode code point for the current character
+			const codePoint = input.charCodeAt(i);
+		
+			// Convert the code point to a hexadecimal string with leading zeros
+			const hexString = codePoint.toString(16).toUpperCase().padStart(4, '0');
+		
+			// Append the hexadecimal representation to the result
+			ucsText += hexString;
+		}
+	  
+		return ucsText;
 	}
 }

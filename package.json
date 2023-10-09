@@ -1,6 +1,6 @@
 {
   "name": "@adlanarifzr/macrokiosk-sdk",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Macrokiosk (BOLD for SMS) unofficial SDK",
   "main": "dist/index.js",
   "scripts": {
