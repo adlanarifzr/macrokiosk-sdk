@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export enum MessageType {
 	ASCII = 0,
 	UNICODE = 5,
@@ -71,8 +73,8 @@ export default class Macrokiosk {
 		});
 
 		// Call the API
-		const response = await fetch(url.toString());
-		const text = await response.text();
+		const response = await axios.get(url.toString());
+		const text = response.data;
 
 		// Check if the response is an error
 		if(!isNaN(text as any)) {
